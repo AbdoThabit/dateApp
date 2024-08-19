@@ -1,0 +1,90 @@
+<div class="page">
+  <div class="content">
+    <form #form="ngForm" (ngSubmit)="onSubmit(form)">
+      <div class="row">
+        <label for="Name" class="lbl">enter name</label>
+      </div>
+
+      <div class="row">
+        <input
+          type="text"
+          for="Name"
+          name="name"
+          class="input"
+          [(ngModel)]="name"
+        />
+      </div>
+      <div class="row">
+        <label for="starDate" class="lbl"> enter start date </label>
+      </div>
+      <div class="row">
+        <app-custom-date-input
+          name="starDate"
+          [appDateValidator]="'MM/DD/YYYY'"
+          [maxDate]="dates.endDate"
+          [endDate]="dates.endDate"
+          [(ngModel)]="dates.starDate"
+          [dateFormat]="'MM/DD/YYYY'"
+          #starDate="ngModel"
+        ></app-custom-date-input>
+      </div>
+      <div class="row">
+        <div *ngIf="starDate.invalid && starDate.dirty">
+          <div *ngIf="starDate.errors?.['invalidDateFormat']">
+            Invalid date format
+          </div>
+          <div *ngIf="starDate.errors?.['outOfRange']">Date out of range</div>
+        </div>
+      </div>
+      <div class="row">
+        <label for="endDate" class="lbl"> enter end date </label>
+      </div>
+      <div class="row">
+        <app-custom-date-input
+          name="endDate"
+          [appDateValidator]="'MM/DD/YYYY'"
+          [minDate]="dates.starDate"
+          [startDate]="dates.starDate"
+          [dateFormat]="'MM/DD/YYYY'"
+          [(ngModel)]="dates.endDate"
+          #endDate="ngModel"
+        ></app-custom-date-input>
+      </div>
+      <div class="row">
+        <div *ngIf="endDate.invalid && endDate.dirty">
+          <div *ngIf="endDate.errors?.['invalidDateFormat']">
+            Invalid date format
+          </div>
+          <div *ngIf="endDate.errors?.['outOfRange']">Date out of range</div>
+        </div>
+      </div>
+      <div class="row">
+        <label for="dateInput" class="lbl"> enter date </label>
+      </div>
+      <div class="row">
+        <app-custom-date-input
+          name="dateInput"
+          [appDateValidator]="'MM/DD/YYYY'"
+          [minDate]="dates.starDate"
+          [maxDate]="dates.endDate"
+          [(ngModel)]="dates.actualDate"
+          [startDate]="dates.starDate"
+          [endDate]="dates.endDate"
+          #dateInput="ngModel"
+          [dateFormat]="'MM/DD/YYYY'"
+        ></app-custom-date-input>
+      </div>
+
+      <div class="row">
+        <div *ngIf="dateInput.invalid && dateInput.dirty && dateInput.touched">
+          <div *ngIf="dateInput.errors?.['invalidDateFormat']">
+            Invalid date format
+          </div>
+          <div *ngIf="dateInput.errors?.['outOfRange']">Date out of range</div>
+        </div>
+      </div>
+
+      <input type="submit" value="select" />
+    </form>
+  </div>
+</div>

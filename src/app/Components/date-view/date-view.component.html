@@ -1,0 +1,134 @@
+<div class="content">
+  <div class="Day clender" *ngIf="displayDayClenderView">
+    <div class="row">
+      <div class="headerContainer">
+        <div class="dateHeader">
+          <div>
+            <button class="btn arrow left" (click)="back()"></button>
+          </div>
+          <div class="month-year">
+            <span (click)="displayMonthClender()"> {{ monthName }} </span>
+            <span (click)="displayYearClender()">{{ selectedYear }}</span>
+          </div>
+          <div>
+            <button class="btn arrow right" (click)="next()"></button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <table class="tbl days">
+        <thead class="tblHead">
+          <tr>
+            <th class="dayName">Su</th>
+            <th class="dayName">Mo</th>
+            <th class="dayName">Tu</th>
+            <th class="dayName">We</th>
+            <th class="dayName">Th</th>
+            <th class="dayName">Fr</th>
+            <th class="dayName">Sa</th>
+          </tr>
+        </thead>
+        <tr *ngFor="let week of allDates">
+          <td
+            *ngFor="let date of week"
+            (click)="onDateSelected(date)"
+            [ngClass]="{
+              
+              currentMonth: isCurrentMonthDays(date),
+              currentDay: compareDates(currentDate, date),
+              selectedDatestyle: compareDates(selectedDate, date),
+              disabled : !isAvailableDate(date),
+            }"
+            class="dayNum"
+          >
+            {{ date.getDate() }}
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <div class="months clender" *ngIf="displyMonthsView">
+    <div class="row">
+      <div class="headerContainer">
+        <div class="dateHeader">
+          <div>
+            <button class="btn arrow left" (click)="backToLastYear()"></button>
+          </div>
+          <div class="month-year">
+            <span (click)="displayYearClender()">{{ selectedYear }}</span>
+          </div>
+          <div>
+            <button class="btn arrow right" (click)="toNextYear()"></button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="container">
+        <div class="item-flex">
+          <div
+            *ngFor="let month of months"
+            [ngClass]="{
+              current: isCuurentMonth(month)
+            }"
+            class="item cell"
+            (click)="onMonthChange(month)"
+          >
+            {{ month }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="year clender" *ngIf="displyYearsView">
+    <div class="row">
+      <div class="headerContainer">
+        <div class="dateHeader">
+          <div>
+            <button class="btn arrow left" (click)="backDecade()"></button>
+          </div>
+          <div class="month-year">
+            <span>{{ firstYearInlist }} - {{ lastYearInlist }}</span>
+          </div>
+          <div>
+            <button class="btn arrow right" (click)="nextDecade()"></button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="container">
+        <div class="item-flex">
+          <div
+            *ngFor="let year of allYears"
+            [ngClass]="{
+              current: isCurrentYear(year)
+            }"
+            class="item cell"
+            (click)="changeYear(year)"
+          >
+            {{ year }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- <div class="content" *ngIf="toggle">
+  <div class="row">
+    <label for="startDate">StartDate</label>
+  </div>
+  <div class="row">
+    <input type="text" name="startDate" [(ngModel)]="startDateString" />
+  </div>
+  <div class="row">
+    <label for="endDate">endDate</label>
+  </div>
+  <div class="row">
+    <input type="endDate" name="endDate" [(ngModel)]="endDateString" />
+  </div>
+  <div class="row">
+    <button class="submitBtn" (click)="setTheStartAndEndDates()">set</button>
+  </div>
+</div> -->

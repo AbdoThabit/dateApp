@@ -1,0 +1,19 @@
+<div class="content">
+  <div class="row">
+    <input
+      class="input"
+      [(ngModel)]="dateString"
+      name="dateString"
+      (change)="onInput()"
+      (blur)="onBlur()"
+    />
+  </div>
+
+  <div class="row">
+    <app-date-view
+      (dateChange)="onDateChange($event)"
+      [startDate]="startDate"
+      [endDate]="endDate"
+    ></app-date-view>
+  </div>
+</div>
